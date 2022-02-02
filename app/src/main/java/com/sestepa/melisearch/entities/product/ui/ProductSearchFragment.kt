@@ -8,9 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.hideKeyboard
+import com.sestepa.melisearch.core.onQuerySummit
 import com.sestepa.melisearch.databinding.FragmentProductSearchBinding
 import com.sestepa.melisearch.entities.product.domain.ProductData
-import com.sestepa.melisearch.core.onQuerySummit
+
 
 private const val TAG = "SearchFragment"
 
@@ -24,17 +26,25 @@ class ProductSearchFragment: Fragment(R.layout.fragment_product_search) {
 		Log.i(TAG, "onViewCreated")
 
 		binding = FragmentProductSearchBinding.bind(view)
-		initRecyclerView()
 
 		binding.searchView.onQuerySummit{ text ->
 			Log.i( TAG, "Text Query [$text]")
-			viewModel.textQuery.value = text
 
-			viewModel.getProductQuery()
+			if( !text.isNullOrEmpty()) {
+				viewModel.textQuery.value = text
+				viewModel.getProductQuery()
+			}
+
+			context?.hideKeyboard(binding.searchView)
 			true
 		}
-	}
 
+		viewModel.productQueryResult.observe(viewLifecycleOwner) { list ->
+			Log.i(TAG, "Download query result")
+			list.forEach { Log.i(TAG, "PRODUCT: $it") }
+			initRecyclerView()
+		}
+	}
 
 	private fun initRecyclerView() {
 		val manager = LinearLayoutManager(context)
