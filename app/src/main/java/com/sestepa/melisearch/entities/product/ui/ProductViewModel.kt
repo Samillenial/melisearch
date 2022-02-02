@@ -21,7 +21,7 @@ class ProductViewModel: ViewModel() {
 			val result = GetProductQuery()(siteId, textQuery.value!!, paging)
 
 			if(result.isNotEmpty()) {
-				productQueryResult.postValue(result)
+				productQueryResult.postValue(result.products)
 			}
 		}
 	}
