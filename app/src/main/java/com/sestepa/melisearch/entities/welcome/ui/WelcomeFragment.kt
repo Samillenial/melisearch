@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.entities.site.ui.SiteFragment
 import com.sestepa.melisearch.entities.site.ui.SiteViewModel
 
 private const val TAG = "WelcomeFragment"

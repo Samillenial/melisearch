@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sestepa.melisearch.R
@@ -19,6 +20,8 @@ private const val TAG = "SearchFragment"
 class ProductSearchFragment: Fragment(R.layout.fragment_product_search) {
 
 	private lateinit var binding: FragmentProductSearchBinding
+
+	private val args: ProductSearchFragmentArgs by navArgs()
 	private val viewModel: ProductViewModel by viewModels()
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,14 +35,16 @@ class ProductSearchFragment: Fragment(R.layout.fragment_product_search) {
 
 			if( !text.isNullOrEmpty()) {
 				viewModel.textQuery.value = text
-				viewModel.getProductQuery()
+				viewModel.getProductQuery( args.site.id)
 			}
 
 			context?.hideKeyboard(binding.searchView)
+			binding.progressBar.visibility = View.VISIBLE
 			true
 		}
 
 		viewModel.productQueryResult.observe(viewLifecycleOwner) { list ->
+			binding.progressBar.visibility = View.GONE
 			Log.i(TAG, "Download query result")
 			list.forEach { Log.i(TAG, "PRODUCT: $it") }
 			initRecyclerView()

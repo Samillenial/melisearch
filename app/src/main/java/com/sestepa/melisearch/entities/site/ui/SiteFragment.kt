@@ -45,7 +45,7 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 			list.forEach { Log.i(TAG, "CATEGORY: $it") }
 
 			viewModel.updateCategories()
-			Navigation.findNavController(view).navigate(R.id.menuFragment)
+			Navigation.findNavController(view).navigate(SiteFragmentDirections.actionSiteFragmentToMenuFragment(viewModel.currentSite.value!!))
 		}
 	}
 

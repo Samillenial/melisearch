@@ -10,18 +10,17 @@ import kotlinx.coroutines.launch
 
 class ProductViewModel: ViewModel() {
 
-	var siteId = "MLC"
 	var paging = PagingData(limit = 50)
 	var textQuery = MutableLiveData<String>()
 	var productQueryResult = MutableLiveData<List<ProductData>>()
 	var currentProduct = MutableLiveData<ProductData>()
 
-	fun getProductQuery(){
+	fun getProductQuery(siteId: String){
 		viewModelScope.launch {
 			val result = GetProductQuery()(siteId, textQuery.value!!, paging)
 
 			if(result.isNotEmpty()) {
-				productQueryResult.postValue(result)
+				productQueryResult.postValue(result.products)
 			}
 		}
 	}

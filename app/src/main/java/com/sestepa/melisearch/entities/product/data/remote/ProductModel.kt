@@ -8,7 +8,7 @@ data class ProductModel(
 		@SerializedName("id") val id: String,
 		@SerializedName("site_id") val siteId: String,
 		@SerializedName("title") val title: String,
-		@SerializedName("price") val price: Int,
+		@SerializedName("price") val price: Float,
 		@SerializedName("currency_id") val currencyId: String,
 		@SerializedName("available_quantity") val availableQuantity: Int,
 		@SerializedName("sold_quantity") val soldQuantity: Int,

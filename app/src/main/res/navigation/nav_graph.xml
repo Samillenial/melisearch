@@ -10,7 +10,8 @@
         android:label="WelcomeFragment" >
         <action
             android:id="@+id/action_welcomeFragment_to_siteFragment"
-            app:destination="@id/siteFragment" />
+            app:destination="@id/siteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -22,7 +23,8 @@
         android:label="SiteFragment" >
         <action
             android:id="@+id/action_siteFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
+            app:destination="@id/menuFragment"
+            app:enterAnim="@animator/nav_default_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -38,9 +40,16 @@
         <action
             android:id="@+id/action_menuFragment_to_productSearchFragment"
             app:destination="@id/productSearchFragment" />
+        <argument
+            android:name="site"
+            app:argType="com.sestepa.melisearch.entities.site.domain.SiteData" />
     </fragment>
     <fragment
         android:id="@+id/productSearchFragment"
         android:name="com.sestepa.melisearch.entities.product.ui.ProductSearchFragment"
-        android:label="ProductSearchFragment" />
+        android:label="ProductSearchFragment" >
+        <argument
+            android:name="site"
+            app:argType="com.sestepa.melisearch.entities.site.domain.SiteData" />
+    </fragment>
 </navigation>

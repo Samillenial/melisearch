@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgs
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.setFlag
 import com.sestepa.melisearch.databinding.FragmentMenuBinding
 
 private const val TAG = "MenuFragment"
@@ -13,6 +16,7 @@ private const val TAG = "MenuFragment"
 class MenuFragment: Fragment(R.layout.fragment_menu) {
 
 	private lateinit var binding: FragmentMenuBinding
+	private val args: MenuFragmentArgs by navArgs()
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
@@ -20,13 +24,16 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
 		Log.i(TAG, "onViewCreated")
 		binding = FragmentMenuBinding.bind(view)
 
+		setCountryFlag( args.site.id)
+
 		binding.homeButton.setOnClickListener {
 			Log.i(TAG, "homeButton Clicked")
 		}
 
 		binding.searchButton.setOnClickListener {
 			Log.i(TAG, "searchButton Clicked")
-			Navigation.findNavController(view).navigate(R.id.productSearchFragment)
+
+			Navigation.findNavController(view).navigate(MenuFragmentDirections.actionMenuFragmentToProductSearchFragment(args.site))
 		}
 
 		binding.historialButton.setOnClickListener {
@@ -35,16 +42,18 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
 
 		binding.categoriesButton.setOnClickListener {
 			Log.i(TAG, "categoriesButton Clicked")
-			Navigation.findNavController(view).navigate(R.id.categoryFragment)
+			Navigation.findNavController(view).navigate(MenuFragmentDirections.actionMenuFragmentToCategoryFragment())
 		}
 
 		binding.selectCountryButton.setOnClickListener {
 			Log.i(TAG, "countryButton Clicked")
-			Navigation.findNavController(view).navigate(R.id.siteFragment)
+			Navigation.findNavController(view).navigate(MenuFragmentDirections.actionMenuFragmentToSiteFragment())
 		}
 
 		binding.aboutButton.setOnClickListener {
 			Log.i(TAG, "aboutButton Clicked")
 		}
 	}
+
+	private fun setCountryFlag(id: String) = binding.countryFlag.setFlag(id)
 }
