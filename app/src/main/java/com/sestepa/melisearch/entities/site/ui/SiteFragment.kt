@@ -29,10 +29,10 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 
 		viewModel.siteList.observe(viewLifecycleOwner) { list ->
 			list.forEach { item -> Log.i(TAG, "SITE: $item") }
-			initRecyclerView()
+			configRecyclerView()
 		}
 
-		viewModel.currentSite.observe(viewLifecycleOwner){
+		viewModel.currentSite.observe(viewLifecycleOwner) {
 			Log.i(TAG, "Update CurrentSite")
 			viewModel.updateCurrentSite()
 
@@ -51,11 +51,11 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 
 	private fun onItemSelected(site: SiteData) {
 		Log.i(TAG, "Country Selected: ${site.name}")
-		context?.showToast(site.name)
+		requireContext().showToast(site.name)
 		viewModel.currentSite.postValue(site)
 	}
 
-	private fun initRecyclerView() {
+	private fun configRecyclerView() {
 		binding.countryRecyclerView.layoutManager = LinearLayoutManager(context)
 		binding.countryRecyclerView.adapter = SiteAdapter(viewModel.siteList.value ?: listOf()) { site ->
 			onItemSelected(site)

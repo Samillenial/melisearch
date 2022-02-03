@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sestepa.melisearch.R
@@ -35,17 +36,18 @@ class CategoryFragment: Fragment(R.layout.fragment_category) {
 
 		viewModel.categoriesList.observe(viewLifecycleOwner) { list ->
 			list.forEach { item -> Log.i(TAG, "SITE: $item") }
-			initRecyclerView()
+			configRecyclerView()
 		}
 	}
 
 	private fun onItemSelected(category: CategoryData) {
 		Log.i(TAG, "Category Selected: ${category.name}")
-		context?.showToast(category.name)
+		requireContext().showToast(category.name)
 		viewModel.currentCategory.postValue(category)
+		Navigation.findNavController(requireView()).navigate(CategoryFragmentDirections.actionCategoryFragmentToSearchByCategoryFragment(viewModel.currentSite.value!!, category))
 	}
 
-	private fun initRecyclerView() {
+	private fun configRecyclerView() {
 		val manager = LinearLayoutManager(context)
 
 		binding.categoryRecyclerView.layoutManager = manager

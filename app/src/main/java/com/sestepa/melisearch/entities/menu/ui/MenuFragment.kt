@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.sestepa.melisearch.R
@@ -24,7 +23,7 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
 		Log.i(TAG, "onViewCreated")
 		binding = FragmentMenuBinding.bind(view)
 
-		setCountryFlag( args.site.id)
+		setCountryFlag(args.site.id)
 
 		binding.homeButton.setOnClickListener {
 			Log.i(TAG, "homeButton Clicked")
@@ -33,11 +32,12 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
 		binding.searchButton.setOnClickListener {
 			Log.i(TAG, "searchButton Clicked")
 
-			Navigation.findNavController(view).navigate(MenuFragmentDirections.actionMenuFragmentToProductSearchFragment(args.site))
+			Navigation.findNavController(view).navigate(MenuFragmentDirections.actionMenuFragmentToSearchByNameFragment(args.site))
 		}
 
-		binding.historialButton.setOnClickListener {
-			Log.i(TAG, "historialButton Clicked")
+		binding.recordButton.setOnClickListener {
+			Log.i(TAG, "recordButton Clicked")
+			Navigation.findNavController(view).navigate(MenuFragmentDirections.actionMenuFragmentToRecordFragment())
 		}
 
 		binding.categoriesButton.setOnClickListener {
@@ -51,6 +51,7 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
 		}
 
 		binding.aboutButton.setOnClickListener {
+			Navigation.findNavController(view).navigate(MenuFragmentDirections.actionMenuFragmentToAboutFragment())
 			Log.i(TAG, "aboutButton Clicked")
 		}
 	}

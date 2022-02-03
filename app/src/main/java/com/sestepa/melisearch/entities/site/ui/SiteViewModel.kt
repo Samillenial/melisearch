@@ -18,26 +18,26 @@ class SiteViewModel: ViewModel() {
 	val categoriesList = MutableLiveData<List<CategoryData>>()
 	val currentCategory = MutableLiveData<CategoryData>()
 
-	fun getSites(){
+	fun getSites() {
 		viewModelScope.launch {
 			val result = GetSitesUseCase()()
 
-			if( result.isNotEmpty() ) {
+			if(result.isNotEmpty()) {
 				siteList.postValue(result.sorted())
 			}
 		}
 	}
 
-	fun updateSites(){
-		viewModelScope.launch{
-			if( siteList.value.isNotNull())
+	fun updateSites() {
+		viewModelScope.launch {
+			if(siteList.value.isNotNull())
 				UpdateSitesUseCase()(siteList.value!!)
 		}
 	}
 
-	fun getCurrentSite(){
+	fun getCurrentSite() {
 		viewModelScope.launch {
-			currentSite.postValue(GetCurrentSite()()!!)
+			currentSite.postValue(GetCurrentSite()())
 		}
 	}
 
@@ -48,7 +48,7 @@ class SiteViewModel: ViewModel() {
 		}
 	}
 
-	fun getCategories(){
+	fun getCategories() {
 		viewModelScope.launch {
 			val result = GetCategoriesUseCase()(currentSite.value!!)
 

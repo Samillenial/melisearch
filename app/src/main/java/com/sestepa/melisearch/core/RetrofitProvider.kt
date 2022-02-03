@@ -13,6 +13,9 @@ class RetrofitProvider(private val url: String) {
 			return OkHttpClient.Builder()
 					.addInterceptor(HttpLoggingInterceptor().apply {
 						level = HttpLoggingInterceptor.Level.BODY
+					})
+					.addInterceptor(HttpLoggingInterceptor().apply {
+						level = HttpLoggingInterceptor.Level.HEADERS
 					}).build()
 		}
 

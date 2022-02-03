@@ -1,9 +1,8 @@
 package com.sestepa.melisearch.entities.category.data.local
 
-import com.sestepa.melisearch.entities.category.domain.CategoryData
+import com.sestepa.melisearch.entities.site.domain.SiteData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.sestepa.melisearch.entities.site.domain.SiteData
 
 class CategoriesProvider {
 

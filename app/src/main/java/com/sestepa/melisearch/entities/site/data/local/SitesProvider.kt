@@ -8,7 +8,7 @@ class SitesProvider {
 	companion object {
 
 		private var sites: List<SiteEntity> = emptyList()
-		private var currentSite: SiteEntity = SiteEntity("","", "")
+		private var currentSite: SiteEntity = SiteEntity("", "", "")
 
 		suspend fun getSites(): List<SiteEntity> {
 			return withContext(Dispatchers.IO) {
@@ -22,13 +22,13 @@ class SitesProvider {
 			}
 		}
 
-		suspend fun getCurrentSite(): SiteEntity{
+		suspend fun getCurrentSite(): SiteEntity {
 			return withContext(Dispatchers.IO) {
 				currentSite
 			}
 		}
 
-		suspend fun updateCurrentSite( newSite: SiteEntity){
+		suspend fun updateCurrentSite(newSite: SiteEntity) {
 			withContext(Dispatchers.IO) {
 				currentSite = newSite
 			}

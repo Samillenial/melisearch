@@ -20,9 +20,9 @@ class SiteRepository {
 		return SitesProvider.getSites().map { entity -> entity.toSiteData() }
 	}
 
-	suspend fun updateSitesToLocal(newSites: List<SiteData>){
+	suspend fun updateSitesToLocal(newSites: List<SiteData>) {
 		Log.i(TAG, "updateSitesToLocal")
-		return SitesProvider.updateSites(newSites.map { it.toSiteEntity()})
+		return SitesProvider.updateSites(newSites.map { it.toSiteEntity() })
 	}
 
 	suspend fun updateCurrentSiteToLocal(newSite: SiteData) {

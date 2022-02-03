@@ -6,7 +6,7 @@ import com.sestepa.melisearch.entities.category.domain.CategoryData
 data class CategoryModel(
 		@SerializedName("id") val id: String,
 		@SerializedName("name") val name: String
-					  ) {
+						) {
 
 	fun toCategoryData() = CategoryData(id, name)
 }

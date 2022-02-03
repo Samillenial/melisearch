@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".entities.product.ui.ProductSearchFragment">
+    tools:context=".entities.search.ui.SearchByNameFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -15,8 +15,9 @@
         android:layout_marginEnd="16dp"
         android:focusable="auto"
         android:focusedByDefault="true"
-        android:imeOptions="actionSearch"
+        android:imeOptions="normal"
         android:inputType="textAutoCorrect|text|textAutoComplete"
+        android:touchscreenBlocksFocus="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
