@@ -1,16 +1,16 @@
 package com.sestepa.melisearch.entities.search.data
 
 import android.util.Log
-import com.sestepa.melisearch.entities.search.data.local.ProductEntity
-import com.sestepa.melisearch.entities.search.data.local.ProductRecordDAO
-import com.sestepa.melisearch.entities.search.data.local.toProductEntity
+import com.sestepa.melisearch.entities.search.data.local.ItemEntity
+import com.sestepa.melisearch.entities.search.data.local.ItemRecordDAO
+import com.sestepa.melisearch.entities.search.data.local.toItemEntity
 import com.sestepa.melisearch.entities.search.data.remote.SearchRemoteService
 import com.sestepa.melisearch.entities.search.data.remote.toSearchData
 import com.sestepa.melisearch.entities.search.domain.PagingData
-import com.sestepa.melisearch.entities.search.domain.ProductData
+import com.sestepa.melisearch.entities.search.domain.ItemData
 import com.sestepa.melisearch.entities.search.domain.SearchData
 
-private const val TAG = "ProductRepository"
+private const val TAG = "SearchRepository"
 
 class SearchRepository {
 
@@ -24,24 +24,24 @@ class SearchRepository {
 		return SearchRemoteService().getItemsByCategory(siteId, categoryId, paging).toSearchData()
 	}
 
-	suspend fun saveProductRecordToLocal(product: ProductData) {
-		Log.i(TAG, "saveProductRecordToLocal")
-		ProductRecordDAO.saveRecord(product.toProductEntity())
+	suspend fun saveItemRecordToLocal(item: ItemData) {
+		Log.i(TAG, "saveItemRecordToLocal")
+		ItemRecordDAO.saveRecord(item.toItemEntity())
 	}
 
-	suspend fun getRecordsFromLocal(): List<ProductEntity> {
-		Log.i(TAG, "saveProductRecordToLocal")
-		return ProductRecordDAO.getRecords()
+	suspend fun getRecordsFromLocal(): List<ItemEntity> {
+		Log.i(TAG, "getRecordsFromLocal")
+		return ItemRecordDAO.getRecords()
 	}
 
 	suspend fun deleteRecordsFromLocal() {
 		Log.i(TAG, "deleteRecordsFromLocal")
-		ProductRecordDAO.deleteRecords()
+		ItemRecordDAO.deleteRecords()
 	}
 
-	suspend fun deleteRecordFromLocal(product: ProductData) {
+	suspend fun deleteRecordFromLocal(product: ItemData) {
 		Log.i(TAG, "deleteRecordFromLocal")
-		ProductRecordDAO.deleteRecord(product.toProductEntity())
+		ItemRecordDAO.deleteRecord(product.toItemEntity())
 	}
 }
 

@@ -26,26 +26,39 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 		binding = FragmentSiteBinding.bind(view)
 
 		viewModel.getSites()
+		viewModel.siteList.observe(viewLifecycleOwner) { sites ->
 
-		viewModel.siteList.observe(viewLifecycleOwner) { list ->
-			list.forEach { item -> Log.i(TAG, "SITE: $item") }
-			configRecyclerView()
+			if(sites.isEmpty()) {
+				requireContext().showToast(getString(R.string.try_again))
+				requireActivity().onBackPressed()
+			} else {
+				sites.forEach { site -> Log.i(TAG, "SITE: $site") }
+				configRecyclerView()
+			}
 		}
 
-		viewModel.currentSite.observe(viewLifecycleOwner) {
-			Log.i(TAG, "Update CurrentSite")
+		viewModel.currentSite.observe(viewLifecycleOwner) { site ->
+			Log.i(TAG, "Try Update Current Site ${site.name}")
 			viewModel.updateCurrentSite()
 
-			Log.i(TAG, "Get Categories")
+			Log.i(TAG, "Try Get Categories")
 			viewModel.getCategories()
 		}
 
-		viewModel.categoriesList.observe(viewLifecycleOwner) { list ->
-			Log.i(TAG, "Download sites")
-			list.forEach { Log.i(TAG, "CATEGORY: $it") }
+		viewModel.categoriesList.observe(viewLifecycleOwner) { categories ->
 
-			viewModel.updateCategories()
-			Navigation.findNavController(view).navigate(SiteFragmentDirections.actionSiteFragmentToMenuFragment(viewModel.currentSite.value!!))
+			if(categories.isEmpty()) {
+				Log.e(TAG, "Download CATEGORY fail")
+
+				requireContext().showToast(getString(R.string.try_again))
+				requireActivity().onBackPressed()
+			} else {
+				Log.i(TAG, "Download CATEGORY successful !!!")
+				categories.forEach { Log.i(TAG, "CATEGORY: $it") }
+
+				viewModel.updateCategories()
+				Navigation.findNavController(view).navigate(SiteFragmentDirections.actionSiteFragmentToMenuFragment(viewModel.currentSite.value!!))
+			}
 		}
 	}
 
@@ -56,10 +69,9 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 	}
 
 	private fun configRecyclerView() {
-		binding.countryRecyclerView.layoutManager = LinearLayoutManager(context)
-		binding.countryRecyclerView.adapter = SiteAdapter(viewModel.siteList.value ?: listOf()) { site ->
+		binding.countryRecycler.layoutManager = LinearLayoutManager(context)
+		binding.countryRecycler.adapter = SiteAdapter(viewModel.siteList.value ?: listOf()) { site ->
 			onItemSelected(site)
 		}
 	}
 }
-

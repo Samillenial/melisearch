@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.sestepa.melisearch.R
 import com.squareup.picasso.Picasso
 import java.security.InvalidParameterException
+import java.text.DecimalFormat
 
 fun Any?.isNull() = this == null
 
@@ -25,9 +26,8 @@ fun ImageView.load(url: String) {
 
 fun ImageView.load2(url: String) {
 	if(url.isNotEmpty())
-		Picasso.get().load(url).error(R.drawable.ic_picture).into(this);
+		Picasso.get().load(url).error(R.drawable.ic_picture).into(this)
 }
-
 
 fun Context.hideKeyboard(view: View) {
 	val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -70,6 +70,10 @@ fun ImageView.setFlag(flagId: String) {
 		"MPE" -> R.drawable.flag_peru
 		else  -> throw InvalidParameterException("Wrong parameter $id")
 	}
+
 	setImageResource(id)
 }
+
+fun Double.formatAmount() = "$ " + DecimalFormat("#,###,##0.00").format(this).removeSuffix(",00")
+
 

@@ -8,9 +8,12 @@ import com.sestepa.melisearch.entities.site.domain.SiteData
 
 class CategoryRepository {
 
-	suspend fun getCategoriesFromRemote(site: SiteData): List<CategoryData> = CategoryRemoteService().getCategories(site.id).map { model -> model.toCategoryData() }
+	suspend fun getCategoriesFromRemote(site: SiteData): List<CategoryData> =
+		CategoryRemoteService().getCategories(site.id).map { model -> model.toCategoryData() }
 
-	suspend fun getCategoriesFromLocal(site: SiteData): List<CategoryData> = CategoriesProvider.getCategories(site).map { entity -> entity.toCategoryData() }
+	suspend fun getCategoriesFromLocal(site: SiteData): List<CategoryData> =
+		CategoriesProvider.getCategories(site).map { entity -> entity.toCategoryData() }
 
-	suspend fun updateCategoriesToLocal(site: SiteData, newCategories: List<CategoryData>) = CategoriesProvider.updateCategoriesToLocal(site, newCategories.map { data -> data.toCategoryEntity() })
+	suspend fun updateCategoriesToLocal(site: SiteData, newCategories: List<CategoryData>) =
+		CategoriesProvider.updateCategoriesToLocal(site, newCategories.map { data -> data.toCategoryEntity() })
 }

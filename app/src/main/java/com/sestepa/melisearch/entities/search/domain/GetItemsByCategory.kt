@@ -1,4 +1,4 @@
-package com.sestepa.melisearch.entities.product.domain
+package com.sestepa.melisearch.entities.search.domain
 
 import com.sestepa.melisearch.entities.search.data.SearchRepository
 import com.sestepa.melisearch.entities.search.domain.PagingData

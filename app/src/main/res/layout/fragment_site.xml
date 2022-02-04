@@ -22,7 +22,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:src="@drawable/ic_meli"
-        app:layout_constraintBottom_toTopOf="@+id/country_recycler_view"
+        app:layout_constraintBottom_toTopOf="@+id/country_recycler"
         app:layout_constraintStart_toStartOf="@+id/titleBar"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/country_recycler_view"
+        android:id="@+id/country_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -2,7 +2,7 @@ package com.sestepa.melisearch.entities.site.domain
 
 import com.sestepa.melisearch.entities.site.data.SiteRepository
 
-class GetSitesUseCase {
+class GetSites {
 
 	suspend operator fun invoke(): List<SiteData> {
 		val repository = SiteRepository()

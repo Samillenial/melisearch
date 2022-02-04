@@ -29,14 +29,25 @@ class CategoryFragment: Fragment(R.layout.fragment_category) {
 
 		viewModel.getCurrentSite()
 
-		viewModel.currentSite.observe(viewLifecycleOwner) {
-			Log.i(TAG, "Get Categories")
+		viewModel.currentSite.observe(viewLifecycleOwner) { site ->
+			Log.i(TAG, "Try Get Categories to ${site.name}")
 			viewModel.getCategories()
 		}
 
-		viewModel.categoriesList.observe(viewLifecycleOwner) { list ->
-			list.forEach { item -> Log.i(TAG, "SITE: $item") }
-			configRecyclerView()
+		viewModel.categoriesList.observe(viewLifecycleOwner) { categories ->
+
+			if(categories.isEmpty()) {
+				Log.e(TAG, "Download CATEGORY fail")
+
+				requireContext().showToast(getString(R.string.try_again))
+				requireActivity().onBackPressed()
+			}
+			else {
+				Log.i(TAG, "Download CATEGORY successful !!!")
+				categories.forEach { category -> Log.i(TAG, "CATEGORY: $category") }
+
+				configRecyclerView()
+			}
 		}
 	}
 
@@ -50,12 +61,12 @@ class CategoryFragment: Fragment(R.layout.fragment_category) {
 	private fun configRecyclerView() {
 		val manager = LinearLayoutManager(context)
 
-		binding.categoryRecyclerView.layoutManager = manager
-		binding.categoryRecyclerView.adapter = CategoryAdapter(viewModel.categoriesList.value ?: listOf()) { category ->
+		binding.categoryRecycler.layoutManager = manager
+		binding.categoryRecycler.adapter = CategoryAdapter(viewModel.categoriesList.value ?: listOf()) { category ->
 			onItemSelected(category)
 		}
 
-		binding.categoryRecyclerView.addItemDecoration(DividerItemDecoration(context, manager.orientation))
+		binding.categoryRecycler.addItemDecoration(DividerItemDecoration(context, manager.orientation))
 	}
 }
 

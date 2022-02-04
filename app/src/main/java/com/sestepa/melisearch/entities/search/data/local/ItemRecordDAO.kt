@@ -3,32 +3,32 @@ package com.sestepa.melisearch.entities.search.data.local
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ProductRecordDAO {
+class ItemRecordDAO {
 	companion object {
 
-		private val productRecords = mutableListOf<ProductEntity>()
+		private val itemsRecord = mutableListOf<ItemEntity>()
 
-		suspend fun getRecords(): List<ProductEntity> {
+		suspend fun getRecords(): List<ItemEntity> {
 			return withContext(Dispatchers.IO) {
-				productRecords
+				itemsRecord
 			}
 		}
 
-		suspend fun saveRecord(product: ProductEntity) {
+		suspend fun saveRecord(item: ItemEntity) {
 			withContext(Dispatchers.IO) {
-				productRecords.add(product)
+				itemsRecord.add(item)
 			}
 		}
 
 		suspend fun deleteRecords() {
 			withContext(Dispatchers.IO) {
-				productRecords.clear()
+				itemsRecord.clear()
 			}
 		}
 
-		suspend fun deleteRecord(product: ProductEntity) {
+		suspend fun deleteRecord(item: ItemEntity) {
 			withContext(Dispatchers.IO) {
-				productRecords.remove(product)
+				itemsRecord.remove(item)
 			}
 		}
 	}

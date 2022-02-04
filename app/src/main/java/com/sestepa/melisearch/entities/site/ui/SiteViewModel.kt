@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sestepa.melisearch.core.isNotNull
 import com.sestepa.melisearch.entities.category.domain.CategoryData
-import com.sestepa.melisearch.entities.category.domain.GetCategoriesUseCase
+import com.sestepa.melisearch.entities.category.domain.GetCategories
 import com.sestepa.melisearch.entities.category.domain.UpdateCategories
 import com.sestepa.melisearch.entities.site.domain.*
 import kotlinx.coroutines.launch
@@ -20,41 +20,36 @@ class SiteViewModel: ViewModel() {
 
 	fun getSites() {
 		viewModelScope.launch {
-			val result = GetSitesUseCase()()
-
-			if(result.isNotEmpty()) {
-				siteList.postValue(result.sorted())
-			}
+			val result = GetSites()()
+			siteList.postValue(result.sorted())
 		}
 	}
 
 	fun updateSites() {
 		viewModelScope.launch {
 			if(siteList.value.isNotNull())
-				UpdateSitesUseCase()(siteList.value!!)
+				UpdateSites()(siteList.value!!)
 		}
 	}
 
 	fun getCurrentSite() {
 		viewModelScope.launch {
-			currentSite.postValue(GetCurrentSite()())
+			val result = GetCurrentSite().invoke()
+			currentSite.postValue(result)
 		}
 	}
 
 	fun updateCurrentSite() {
 		viewModelScope.launch {
 			if(currentSite.value.isNotNull())
-				UpdateCurrentSiteUseCase()(currentSite.value!!)
+				UpdateCurrentSite()(currentSite.value!!)
 		}
 	}
 
 	fun getCategories() {
 		viewModelScope.launch {
-			val result = GetCategoriesUseCase()(currentSite.value!!)
-
-			if(result.isNotEmpty()) {
-				categoriesList.postValue(result.sorted())
-			}
+			val result = GetCategories()(currentSite.value!!)
+			categoriesList.postValue(result.sorted())
 		}
 	}
 

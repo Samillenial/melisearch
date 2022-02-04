@@ -3,8 +3,8 @@ package com.sestepa.melisearch.entities.search.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sestepa.melisearch.entities.product.domain.GetItemsByCategory
-import com.sestepa.melisearch.entities.product.domain.GetItemsByName
+import com.sestepa.melisearch.entities.search.domain.GetItemsByCategory
+import com.sestepa.melisearch.entities.search.domain.GetItemsByName
 import com.sestepa.melisearch.entities.search.domain.*
 import kotlinx.coroutines.launch
 
@@ -14,7 +14,7 @@ class SearchViewModel: ViewModel() {
 	var textQuery = MutableLiveData<String>()
 
 	var searchResult = MutableLiveData<SearchData>()
-	var currentProduct = MutableLiveData<ProductData>()
+	var currentItem = MutableLiveData<ItemData>()
 
 	fun getItemsByName(siteId: String) {
 		viewModelScope.launch {
@@ -33,9 +33,9 @@ class SearchViewModel: ViewModel() {
 		}
 	}
 
-	fun saveProductRecord() {
+	fun saveItemRecord() {
 		viewModelScope.launch {
-			SaveProductRecord()(currentProduct.value!!)
+			SaveItemRecord()(currentItem.value!!)
 		}
 	}
 
