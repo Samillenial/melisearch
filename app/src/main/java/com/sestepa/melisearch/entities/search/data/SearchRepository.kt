@@ -9,19 +9,20 @@ import com.sestepa.melisearch.entities.search.data.remote.toSearchData
 import com.sestepa.melisearch.entities.search.domain.PagingData
 import com.sestepa.melisearch.entities.search.domain.ItemData
 import com.sestepa.melisearch.entities.search.domain.SearchData
+import javax.inject.Inject
 
 private const val TAG = "SearchRepository"
 
-class SearchRepository {
+class SearchRepository @Inject constructor(private val remoteService: SearchRemoteService) {
 
 	suspend fun getItemsByNameFromRemote(siteId: String, name: String, paging: PagingData): SearchData {
 		Log.i(TAG, "getItemsByNameFromRemote")
-		return SearchRemoteService().getItemsByName(siteId, name, paging).toSearchData()
+		return remoteService.getItemsByName(siteId, name, paging).toSearchData()
 	}
 
 	suspend fun getItemsByCategoryFromRemote(siteId: String, categoryId: String, paging: PagingData): SearchData {
 		Log.i(TAG, "getItemsByCategoryFromApi")
-		return SearchRemoteService().getItemsByCategory(siteId, categoryId, paging).toSearchData()
+		return remoteService.getItemsByCategory(siteId, categoryId, paging).toSearchData()
 	}
 
 	suspend fun saveItemRecordToLocal(item: ItemData) {

@@ -13,9 +13,11 @@ import com.sestepa.melisearch.R
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentSearchCategoryBinding
 import com.sestepa.melisearch.entities.search.domain.ItemData
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "SearchByCategoryFragment"
 
+@AndroidEntryPoint
 class SearchByCategoryFragment: Fragment(R.layout.fragment_search_category) {
 
 	private lateinit var binding: FragmentSearchCategoryBinding

@@ -11,9 +11,11 @@ import com.sestepa.melisearch.R
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentSiteBinding
 import com.sestepa.melisearch.entities.site.domain.SiteData
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "SiteFragment"
 
+@AndroidEntryPoint
 class SiteFragment: Fragment(R.layout.fragment_site) {
 
 	private lateinit var binding: FragmentSiteBinding

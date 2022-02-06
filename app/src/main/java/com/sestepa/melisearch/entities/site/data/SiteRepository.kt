@@ -5,14 +5,15 @@ import com.sestepa.melisearch.entities.site.data.local.SitesProvider
 import com.sestepa.melisearch.entities.site.data.local.toSiteEntity
 import com.sestepa.melisearch.entities.site.data.remote.SiteRemoteService
 import com.sestepa.melisearch.entities.site.domain.SiteData
+import javax.inject.Inject
 
 private const val TAG = "SiteRepository"
 
-class SiteRepository {
+class SiteRepository @Inject constructor(private val remoteService: SiteRemoteService) {
 
 	suspend fun getSitesFromRemote(): List<SiteData> {
 		Log.i(TAG, "getSitesFromRemote")
-		return SiteRemoteService().getSites().map { model -> model.toSiteData() }
+		return remoteService.getSites().map { model -> model.toSiteData() }
 	}
 
 	suspend fun getSitesFromLocal(): List<SiteData> {

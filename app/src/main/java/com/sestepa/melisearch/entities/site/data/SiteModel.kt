@@ -11,5 +11,3 @@ data class SiteModel(
 
 	fun toSiteData() = SiteData(id, name, currencyId)
 }
-
-fun SiteData.toSiteModel() = SiteModel(id, name, currencyId)

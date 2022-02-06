@@ -30,16 +30,9 @@
     <string name="choice_country">Escoje el pais</string>
     <string name="search_in_meli">Buscar en Mercado Libre</string>
     <string name="free_shipping">Envio gratis</string>
-    <string name="large_text">
-        "Acerca de…
-
-
-Esta aplicación tiene como objetivo principal permitir al usuario realizar búsquedas de productos, y ver los detalles, tomando como modelo las búsquedas que realizamos en la App oficial de Meli o de la web, como ejercicio del Mobile Candidate.
-Se intentó recrear a grandes rasgos el comportamiento y apariencia que normalmente se accede mediante la plataforma de búsquedas de Mercado Libre; conectándonos al API REST https://developers.mercadolibre.com.ar/es_ar/items-y-busquedas, donde podemos acceder a varios endpoints para realizar consultas específicas. Generando en tiempo de ejecución búsquedas por país sobre los productos de manera dinámica. Logrando realizar búsquedas de producto por Nombre y Categoria, asi mismo se incluyo un Historial de publicaciones vistas.
-
-Desarrollado por SAMUEL ESTEPA
-"
+    <string name="large_text">"Esta aplicación tiene como objetivo permitir al usuario realizar búsquedas de productos y ver los detalles, tomando como modelo las búsquedas que realizamos en la App oficial de Meli.\nSe intentó recrear a grandes rasgos el comportamiento y apariencia que normalmente se accede en la plataforma de búsquedas de Mercado Libre, conectándonos al API REST de desarrollo, para acceder a los endpoints y realizar consultas en tiempo real específicas.\nGenerando en tiempo de ejecución búsquedas por país sobre los productos de manera dinámica. Logrando realizar búsquedas de producto por Nombre y Categoria, asi mismo se incluyo un Historial de publicaciones vistas.\n\nDesarrollado por:"
     </string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="samuel_sign">Samuel Estepa</string>
+    <string name="samuel_linkedin">contact: <a href="http://www.linkedin.com/in/samuel-estepa-34b207210"></a>linkedin</string>
 </resources>

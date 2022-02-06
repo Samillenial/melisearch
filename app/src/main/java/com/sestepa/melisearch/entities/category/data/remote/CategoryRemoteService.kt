@@ -1,18 +1,14 @@
 package com.sestepa.melisearch.entities.category.data.remote
 
-import com.sestepa.melisearch.core.MELI_URL_BASE
-import com.sestepa.melisearch.core.RetrofitProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CategoryRemoteService {
-
-	private val retrofit = RetrofitProvider(MELI_URL_BASE).create()
+class CategoryRemoteService @Inject constructor(private val api: ICategoryApiClient) {
 
 	suspend fun getCategories(siteId: String): List<CategoryModel> {
 		return withContext(Dispatchers.IO) {
-			val response = retrofit.create(ICategoryApiClient::class.java).getCategories(siteId)
-			response.body() ?: emptyList()
+			api.getCategories(siteId).body() ?: emptyList()
 		}
 	}
 }

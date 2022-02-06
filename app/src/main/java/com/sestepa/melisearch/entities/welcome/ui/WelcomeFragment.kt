@@ -9,9 +9,11 @@ import androidx.navigation.Navigation
 import com.sestepa.melisearch.R
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.entities.site.ui.SiteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "WelcomeFragment"
 
+@AndroidEntryPoint
 class WelcomeFragment: Fragment(R.layout.fragment_welcome) {
 
 	private val viewModel: SiteViewModel by viewModels()
@@ -28,7 +30,7 @@ class WelcomeFragment: Fragment(R.layout.fragment_welcome) {
 				requireActivity().onBackPressed()
 			}
 			else {
-				Log.i(TAG, "Download SITES sucessful !!!")
+				Log.i(TAG, "Download SITES successful !!!")
 				sites.forEach { site -> Log.i(TAG, "SITE: $site") }
 
 				viewModel.updateSites()

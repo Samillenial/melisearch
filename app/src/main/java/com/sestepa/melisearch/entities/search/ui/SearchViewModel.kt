@@ -3,12 +3,19 @@ package com.sestepa.melisearch.entities.search.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sestepa.melisearch.entities.search.domain.GetItemsByCategory
-import com.sestepa.melisearch.entities.search.domain.GetItemsByName
+import com.sestepa.melisearch.core.isNotNull
 import com.sestepa.melisearch.entities.search.domain.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel: ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+		private val getItemsByNameUseCase: GetItemsByName,
+		private val getItemsByCategoryUseCase: GetItemsByCategory,
+		private val saveItemRecordUseCase: SaveItemRecord,
+		private val getSearchRecordUseCase: GetSearchRecord
+										 ): ViewModel() {
 
 	var paging = PagingData(limit = 50)
 	var textQuery = MutableLiveData<String>()
@@ -18,31 +25,27 @@ class SearchViewModel: ViewModel() {
 
 	fun getItemsByName(siteId: String) {
 		viewModelScope.launch {
-			val result = GetItemsByName()(siteId, textQuery.value!!, paging)
-
-			if(result.isNotEmpty()) {
-				searchResult.postValue(result)
-			}
+			if(textQuery.value.isNotNull())
+				searchResult.postValue(getItemsByNameUseCase(siteId, textQuery.value!!, paging))
 		}
 	}
 
 	fun getItemsByCategory(siteId: String, categoryId: String) {
 		viewModelScope.launch {
-			val result = GetItemsByCategory()(siteId, categoryId, paging)
-			searchResult.postValue(result)
+			searchResult.postValue(getItemsByCategoryUseCase(siteId, categoryId, paging))
 		}
 	}
 
 	fun saveItemRecord() {
 		viewModelScope.launch {
-			SaveItemRecord()(currentItem.value!!)
+			if(currentItem.value.isNotNull())
+				saveItemRecordUseCase(currentItem.value!!)
 		}
 	}
 
 	fun getSearchRecord() {
 		viewModelScope.launch {
-			val result = GetSearchRecord()()
-			searchResult.postValue(result)
+			searchResult.postValue(getSearchRecordUseCase())
 		}
 	}
 }

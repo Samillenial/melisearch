@@ -9,11 +9,11 @@ import androidx.navigation.fragment.navArgs
 import com.sestepa.melisearch.R
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentProductBinding
-import com.sestepa.melisearch.entities.product.domain.ProductViewModel
-import com.sestepa.melisearch.entities.search.ui.SearchByCategoryFragmentArgs
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "ProductFragment"
 
+@AndroidEntryPoint
 class ProductFragment: Fragment(R.layout.fragment_product) {
 
 	private lateinit var binding: FragmentProductBinding

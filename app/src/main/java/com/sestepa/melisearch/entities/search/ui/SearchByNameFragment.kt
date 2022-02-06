@@ -15,9 +15,11 @@ import com.sestepa.melisearch.core.onQuerySummit
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentSearchNameBinding
 import com.sestepa.melisearch.entities.search.domain.ItemData
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "SearchByNameFragment"
 
+@AndroidEntryPoint
 class SearchByNameFragment: Fragment(R.layout.fragment_search_name) {
 
 	private lateinit var binding: FragmentSearchNameBinding

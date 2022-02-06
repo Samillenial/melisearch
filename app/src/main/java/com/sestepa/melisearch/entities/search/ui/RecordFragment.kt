@@ -12,9 +12,11 @@ import com.sestepa.melisearch.R
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentRecordBinding
 import com.sestepa.melisearch.entities.search.domain.ItemData
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "RecordFragment"
 
+@AndroidEntryPoint
 class RecordFragment: Fragment(R.layout.fragment_record) {
 
 	private lateinit var binding: FragmentRecordBinding

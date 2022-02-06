@@ -11,5 +11,3 @@ data class CategoryModel(
 	fun toCategoryData() = CategoryData(id, name)
 }
 
-fun CategoryData.toSiteModel() = CategoryModel(id, name)
-
