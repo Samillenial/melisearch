@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sestepa.melisearch.R
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentRecordBinding
-import com.sestepa.melisearch.entities.search.domain.ItemData
+import com.sestepa.melisearch.entities.product.domain.ProductData
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "RecordFragment"
@@ -23,9 +23,9 @@ class RecordFragment: Fragment(R.layout.fragment_record) {
 	private val viewModel: SearchViewModel by viewModels()
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		Log.i(TAG, "onViewCreated")
 		super.onViewCreated(view, savedInstanceState)
 
-		Log.i(TAG, "onViewCreated")
 		binding = FragmentRecordBinding.bind(view)
 
 		viewModel.getSearchRecord()
@@ -36,7 +36,7 @@ class RecordFragment: Fragment(R.layout.fragment_record) {
 			if(result.isEmpty()) {
 				Log.e(TAG, "Fail ITEMS download")
 
-				requireContext().showToast(getString(R.string.try_again))
+				requireContext().showToast(getString(R.string.no_items))
 				requireActivity().onBackPressed()
 			} else {
 				Log.i(TAG, "Download ITEMS successful !!!")
@@ -47,13 +47,12 @@ class RecordFragment: Fragment(R.layout.fragment_record) {
 		}
 
 		viewModel.currentItem.observe(viewLifecycleOwner) { item ->
-			Log.i( TAG, "Try Save Item Record ${item.title}")
+			Log.i(TAG, "Try Save Item Record ${item.title}")
 			viewModel.saveItemRecord()
 		}
 	}
 
-	private fun configRecyclerView()
-	{
+	private fun configRecyclerView() {
 		val manager = LinearLayoutManager(context)
 
 		binding.resultRecycler.layoutManager = manager
@@ -64,7 +63,7 @@ class RecordFragment: Fragment(R.layout.fragment_record) {
 		binding.resultRecycler.addItemDecoration(DividerItemDecoration(context, manager.orientation))
 	}
 
-	private fun onItemSelected(item: ItemData) {
+	private fun onItemSelected(item: ProductData) {
 		viewModel.currentItem.value = item
 		requireContext().showToast(item.title)
 		Navigation.findNavController(requireView()).navigate(RecordFragmentDirections.actionRecordFragmentToProductFragment(item.id))

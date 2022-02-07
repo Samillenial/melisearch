@@ -6,7 +6,8 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class MeliSearch: Application() {
-	init{
+
+	init {
 		Log.i("MeliSearch", "Start App")
 	}
 }

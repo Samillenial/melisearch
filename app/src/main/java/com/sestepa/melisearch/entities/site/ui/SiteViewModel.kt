@@ -56,8 +56,8 @@ class SiteViewModel @Inject constructor(
 
 	fun getCategories() {
 		viewModelScope.launch {
-			if( currentSite.value.isNotNull())
-			categoriesList.postValue(getCategoriesUseCase(currentSite.value!!).sorted())
+			if(currentSite.value.isNotNull())
+				categoriesList.postValue(getCategoriesUseCase(currentSite.value!!).sorted())
 		}
 	}
 

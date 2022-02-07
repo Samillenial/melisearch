@@ -9,13 +9,14 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.PREFIX_TAG
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentCategoryBinding
 import com.sestepa.melisearch.entities.category.domain.CategoryData
 import com.sestepa.melisearch.entities.site.ui.SiteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "CategoryFragment"
+private const val TAG = PREFIX_TAG + "CategoryFragment"
 
 @AndroidEntryPoint
 class CategoryFragment: Fragment(R.layout.fragment_category) {
@@ -24,11 +25,10 @@ class CategoryFragment: Fragment(R.layout.fragment_category) {
 	private val viewModel: SiteViewModel by viewModels()
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		Log.i(TAG, "onViewCreated")
 		super.onViewCreated(view, savedInstanceState)
 
-		Log.i(TAG, "onViewCreated")
 		binding = FragmentCategoryBinding.bind(view)
-
 		viewModel.getCurrentSite()
 
 		viewModel.currentSite.observe(viewLifecycleOwner) { site ->
@@ -39,13 +39,12 @@ class CategoryFragment: Fragment(R.layout.fragment_category) {
 		viewModel.categoriesList.observe(viewLifecycleOwner) { categories ->
 
 			if(categories.isEmpty()) {
-				Log.e(TAG, "Download CATEGORY fail")
+				Log.e(TAG, "categories is empty")
 
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
-			}
-			else {
-				Log.i(TAG, "Download CATEGORY successful !!!")
+			} else {
+				Log.i(TAG, "Get CATEGORY successful !!!")
 				categories.forEach { category -> Log.i(TAG, "CATEGORY: $category") }
 
 				configRecyclerView()

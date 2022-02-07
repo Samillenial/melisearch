@@ -8,12 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.PREFIX_TAG
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentSiteBinding
 import com.sestepa.melisearch.entities.site.domain.SiteData
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "SiteFragment"
+private const val TAG = PREFIX_TAG + "SiteFragment"
 
 @AndroidEntryPoint
 class SiteFragment: Fragment(R.layout.fragment_site) {
@@ -31,9 +32,12 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 		viewModel.siteList.observe(viewLifecycleOwner) { sites ->
 
 			if(sites.isEmpty()) {
+				Log.e(TAG, "sites is empty")
+
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
+				Log.i(TAG, "Get SITES successful !!!")
 				sites.forEach { site -> Log.i(TAG, "SITE: $site") }
 				configRecyclerView()
 			}

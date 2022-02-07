@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sestepa.melisearch.core.isNotNull
+import com.sestepa.melisearch.entities.product.domain.ProductData
 import com.sestepa.melisearch.entities.search.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class SearchViewModel @Inject constructor(
 	var textQuery = MutableLiveData<String>()
 
 	var searchResult = MutableLiveData<SearchData>()
-	var currentItem = MutableLiveData<ItemData>()
+	var currentItem = MutableLiveData<ProductData>()
 
 	fun getItemsByName(siteId: String) {
 		viewModelScope.launch {

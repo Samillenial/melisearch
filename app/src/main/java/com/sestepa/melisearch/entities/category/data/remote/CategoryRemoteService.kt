@@ -1,14 +1,24 @@
 package com.sestepa.melisearch.entities.category.data.remote
 
-import kotlinx.coroutines.Dispatchers
+import android.util.Log
+import com.sestepa.melisearch.core.PREFIX_TAG
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class CategoryRemoteService @Inject constructor(private val api: ICategoryApiClient) {
+private const val TAG = PREFIX_TAG + "CategoryRemoteService"
+
+class CategoryRemoteService @Inject constructor(private val dispatcher: CoroutineContext, private val api: ICategoryApiClient) {
 
 	suspend fun getCategories(siteId: String): List<CategoryModel> {
-		return withContext(Dispatchers.IO) {
-			api.getCategories(siteId).body() ?: emptyList()
+		Log.i(TAG, "getCategories")
+		return withContext(dispatcher) {
+			try {
+				api.getCategories(siteId).body() ?: emptyList()
+			} catch(e: Exception) {
+				Log.e(TAG, "getCategories Exception: ${e.message}")
+				emptyList()
+			}
 		}
 	}
 }

@@ -6,10 +6,11 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.PREFIX_TAG
 import com.sestepa.melisearch.databinding.FragmentAboutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "CategoryFragment"
+private const val TAG = PREFIX_TAG + "CategoryFragment"
 
 @AndroidEntryPoint
 class AboutFragment: Fragment(R.layout.fragment_about) {

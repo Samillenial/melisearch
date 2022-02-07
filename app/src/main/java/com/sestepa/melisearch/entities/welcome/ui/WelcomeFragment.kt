@@ -7,11 +7,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.PREFIX_TAG
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.entities.site.ui.SiteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "WelcomeFragment"
+private const val TAG = PREFIX_TAG + "WelcomeFragment"
 
 @AndroidEntryPoint
 class WelcomeFragment: Fragment(R.layout.fragment_welcome) {
@@ -28,8 +29,7 @@ class WelcomeFragment: Fragment(R.layout.fragment_welcome) {
 
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
-			}
-			else {
+			} else {
 				Log.i(TAG, "Download SITES successful !!!")
 				sites.forEach { site -> Log.i(TAG, "SITE: $site") }
 

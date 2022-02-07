@@ -1,7 +1,10 @@
 package com.sestepa.melisearch.entities.product.data.remote
 
 import com.google.gson.annotations.SerializedName
+import com.sestepa.melisearch.core.IEmpty
 import com.sestepa.melisearch.core.formatAmount
+import com.sestepa.melisearch.entities.product.domain.DEFAULT_ID
+import com.sestepa.melisearch.entities.product.domain.DEFAULT_TITLE
 import com.sestepa.melisearch.entities.product.domain.ProductData
 
 data class ProductModel(
@@ -13,8 +16,10 @@ data class ProductModel(
 		@SerializedName("accepts_mercadopago") val mercadopago: Boolean = false,
 		@SerializedName("shipping") val shipping: Shipping = Shipping(),
 		@SerializedName("attributes") val attributes: List<Attributes> = emptyList(),
-		@SerializedName("warranty") val warranty: String = "",
-					   )
+					   ): IEmpty {
+
+	override fun isEmpty() = (id == DEFAULT_ID && title == DEFAULT_TITLE)
+}
 
 data class Attributes(
 		@SerializedName("name") val name: String,
@@ -29,11 +34,10 @@ fun ProductModel.toProductData() = ProductData(
 		id = id,
 		title = title,
 		price = price.formatAmount(),
-		pictures = pictures.map { it.url },
+		images = pictures.map { it.url },
 		condition = condition,
 		mercadopago = mercadopago,
 		freeShipping = shipping.free,
 		attributes = attributes.associate { it.name to it.value },
-		warranty = warranty,
 		rate = (3..5).random().toFloat()
 											  )

@@ -10,9 +10,10 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.isNull
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentSearchCategoryBinding
-import com.sestepa.melisearch.entities.search.domain.ItemData
+import com.sestepa.melisearch.entities.product.domain.ProductData
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "SearchByCategoryFragment"
@@ -32,7 +33,8 @@ class SearchByCategoryFragment: Fragment(R.layout.fragment_search_category) {
 		binding = FragmentSearchCategoryBinding.bind(view)
 		binding.title.text = args.category.name
 
-		viewModel.getItemsByCategory(args.site.id, args.category.id)
+		if(viewModel.searchResult.value.isNull())
+			viewModel.getItemsByCategory(args.site.id, args.category.id)
 
 		viewModel.searchResult.observe(viewLifecycleOwner) { result ->
 			binding.progressBar.visibility = View.GONE
@@ -42,8 +44,7 @@ class SearchByCategoryFragment: Fragment(R.layout.fragment_search_category) {
 
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
-			} else
-			{
+			} else {
 				Log.i(TAG, "Download CATEGORY successful !!!")
 				result.items.forEach { item -> Log.i(TAG, "ITEM: $item") }
 
@@ -68,7 +69,7 @@ class SearchByCategoryFragment: Fragment(R.layout.fragment_search_category) {
 		binding.resultRecycler.addItemDecoration(DividerItemDecoration(context, manager.orientation))
 	}
 
-	private fun onItemSelected(item: ItemData) {
+	private fun onItemSelected(item: ProductData) {
 		viewModel.currentItem.value = item
 		requireContext().showToast(item.title)
 		Navigation.findNavController(requireView()).navigate(SearchByCategoryFragmentDirections.actionSearchByCategoryFragmentToProductFragment(item.id))

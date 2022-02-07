@@ -1,14 +1,18 @@
 package com.sestepa.melisearch.entities.site.data.local
 
+import com.sestepa.melisearch.core.IEmpty
+import com.sestepa.melisearch.entities.site.domain.DEFAULT_ID
+import com.sestepa.melisearch.entities.site.domain.DEFAULT_NAME
 import com.sestepa.melisearch.entities.site.domain.SiteData
 
 data class SiteEntity(
-		val id: String,
-		val name: String,
-		val currencyId: String
-					 ) {
+		val id: String = DEFAULT_ID,
+		val name: String = DEFAULT_NAME
+					 ): IEmpty {
 
-	fun toSiteData(): SiteData = SiteData(id, name, currencyId)
+	override fun isEmpty() = (id == DEFAULT_ID && name == DEFAULT_NAME)
+
+	fun toSiteData(): SiteData = SiteData(id, name)
 }
 
-fun SiteData.toSiteEntity(): SiteEntity = SiteEntity(id, name, currencyId)
+fun SiteData.toSiteEntity(): SiteEntity = SiteEntity(id, name)

@@ -1,14 +1,24 @@
 package com.sestepa.melisearch.entities.product.data.remote
 
-import kotlinx.coroutines.Dispatchers
+import android.util.Log
+import com.sestepa.melisearch.core.PREFIX_TAG
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class ProductRemoteService @Inject constructor( private val api: IProductApiClient){
+private const val TAG = PREFIX_TAG + "ProductRemoteService"
 
-	suspend fun getProductDetail( productId: String ): ProductModel {
-		return withContext(Dispatchers.IO) {
-			api.getProductDetails(productId).body() ?: ProductModel()
+class ProductRemoteService @Inject constructor(private val dispatcher: CoroutineContext, private val api: IProductApiClient) {
+
+	suspend fun getProductDetail(productId: String): ProductModel {
+		Log.i(TAG, "getProductDetail")
+		return withContext(dispatcher) {
+			try {
+				api.getProductDetails(productId).body() ?: ProductModel()
+			} catch(e: Exception) {
+				Log.e(TAG, "getProductDetail Exception ${e.message}")
+				ProductModel()
+			}
 		}
 	}
 }

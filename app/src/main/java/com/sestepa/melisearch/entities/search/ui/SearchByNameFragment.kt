@@ -14,7 +14,7 @@ import com.sestepa.melisearch.core.hideKeyboard
 import com.sestepa.melisearch.core.onQuerySummit
 import com.sestepa.melisearch.core.showToast
 import com.sestepa.melisearch.databinding.FragmentSearchNameBinding
-import com.sestepa.melisearch.entities.search.domain.ItemData
+import com.sestepa.melisearch.entities.product.domain.ProductData
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "SearchByNameFragment"
@@ -32,7 +32,6 @@ class SearchByNameFragment: Fragment(R.layout.fragment_search_name) {
 		Log.i(TAG, "onViewCreated")
 
 		binding = FragmentSearchNameBinding.bind(view)
-
 		configSearchView()
 
 		viewModel.searchResult.observe(viewLifecycleOwner) { result ->
@@ -68,7 +67,7 @@ class SearchByNameFragment: Fragment(R.layout.fragment_search_name) {
 				viewModel.getItemsByName(args.site.id)
 			}
 
-			context?.hideKeyboard(binding.searchView)
+			requireContext().hideKeyboard(binding.searchView)
 			binding.progressBar.visibility = View.VISIBLE
 			true
 		}
@@ -85,7 +84,7 @@ class SearchByNameFragment: Fragment(R.layout.fragment_search_name) {
 		binding.resultRecycler.addItemDecoration(DividerItemDecoration(context, manager.orientation))
 	}
 
-	private fun onItemSelected(item: ItemData) {
+	private fun onItemSelected(item: ProductData) {
 		viewModel.currentItem.value = item
 		requireContext().showToast(item.title)
 		Navigation.findNavController(requireView()).navigate(SearchByNameFragmentDirections.actionSearchByNameFragmentToProductFragment(item.id))

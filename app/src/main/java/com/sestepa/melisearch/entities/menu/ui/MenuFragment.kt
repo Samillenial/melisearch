@@ -7,11 +7,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.sestepa.melisearch.R
+import com.sestepa.melisearch.core.PREFIX_TAG
 import com.sestepa.melisearch.core.setFlag
 import com.sestepa.melisearch.databinding.FragmentMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "MenuFragment"
+private const val TAG = PREFIX_TAG + "MenuFragment"
 
 @AndroidEntryPoint
 class MenuFragment: Fragment(R.layout.fragment_menu) {

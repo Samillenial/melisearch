@@ -1,12 +1,16 @@
 package com.sestepa.melisearch.entities.search.domain
 
+import android.util.Log
+import com.sestepa.melisearch.core.PREFIX_TAG
 import com.sestepa.melisearch.entities.search.data.SearchRepository
-import com.sestepa.melisearch.entities.search.domain.PagingData
-import com.sestepa.melisearch.entities.search.domain.SearchData
 import javax.inject.Inject
 
-class GetItemsByName @Inject constructor(private val repository: SearchRepository)  {
+private const val TAG = PREFIX_TAG + "GetItemsByNameUseCase"
 
-	suspend operator fun invoke(siteId: String, name: String, paging: PagingData): SearchData =
-		repository.getItemsByNameFromRemote(siteId, name, paging)
+class GetItemsByName @Inject constructor(private val repository: SearchRepository) {
+
+	suspend operator fun invoke(siteId: String, name: String, paging: PagingData): SearchData {
+		Log.i(TAG, "invoke")
+		return repository.getItemsByNameFromRemote(siteId, name, paging)
+	}
 }

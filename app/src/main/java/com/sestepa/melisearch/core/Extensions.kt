@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso
 import java.security.InvalidParameterException
 import java.text.DecimalFormat
 
+const val PREFIX_TAG = "MELISEARCH -> "
 fun Any?.isNull() = this == null
 
 fun Any?.isNotNull() = !isNull()
