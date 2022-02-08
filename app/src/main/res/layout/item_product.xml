@@ -19,8 +19,8 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="242dp"
-        android:layout_height="31dp"
+        android:layout_width="245dp"
+        android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/proxima_nova_medium"

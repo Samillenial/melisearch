@@ -13,7 +13,7 @@ data class ProductData(
 		val condition: String = "",
 		val mercadopago: Boolean = false,
 		val freeShipping: Boolean = false,
-		val attributes: Map<String, String> = emptyMap(),
+		val attributes: List<Pair<String, String>> = emptyList(),
 		val rate: Float = 0F
 					  ): IEmpty {
 

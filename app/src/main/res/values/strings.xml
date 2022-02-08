@@ -34,4 +34,5 @@
     <string name="large_text">"Esta app tiene como objetivo realizar búsquedas de productos y ver los detalles, tomando como modelo las búsquedas en la pagina de Meli.\nSe intentó recrear a grandes rasgos el comportamiento y apariencia que normalmente se accede en la plataforma de búsquedas de Mercado Libre, conectándonos al API REST de desarrollo, para acceder a los endpoints y realizar consultas específicas en tiempo real.\nGenerando búsquedas por país sobre productos ya sea por Nombre y/o Categoria, asi mismo se incluyo un Historial de publicaciones vistas.\n\nDesarrollado por:\n"</string>
     <string name="samuel_sign">Samuel Estepa</string>
     <string name="samuel_linkedin">contact: <a href="http://www.linkedin.com/in/samuel-estepa-34b207210">linkedin</a></string>
+    <string name="product">Producto</string>
 </resources>

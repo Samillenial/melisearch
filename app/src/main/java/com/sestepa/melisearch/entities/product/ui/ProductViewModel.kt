@@ -17,6 +17,7 @@ private const val TAG = PREFIX_TAG + "ProductViewModel"
 class ProductViewModel @Inject constructor(private val getProductDetailUseCase: GetProductDetail): ViewModel() {
 
 	var productDetail = MutableLiveData<ProductData>()
+	var currentImage = MutableLiveData<String>()
 
 	fun getProductDetail(productId: String) {
 		viewModelScope.launch {

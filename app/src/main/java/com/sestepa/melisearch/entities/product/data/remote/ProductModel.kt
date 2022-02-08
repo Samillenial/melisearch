@@ -38,6 +38,6 @@ fun ProductModel.toProductData() = ProductData(
 		condition = condition,
 		mercadopago = mercadopago,
 		freeShipping = shipping.free,
-		attributes = attributes.associate { it.name to it.value },
+		attributes = attributes.map{ it.name to it.value },
 		rate = (3..5).random().toFloat()
 											  )
