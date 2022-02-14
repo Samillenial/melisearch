@@ -44,7 +44,7 @@ class CategoryFragment: Fragment(R.layout.fragment_category) {
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Get CATEGORY successful !!!")
+				Log.i(TAG, "Get CATEGORY successful!")
 				categories.forEach { category -> Log.i(TAG, "CATEGORY: $category") }
 
 				configRecyclerView()
@@ -56,7 +56,9 @@ class CategoryFragment: Fragment(R.layout.fragment_category) {
 		Log.i(TAG, "Category Selected: ${category.name}")
 		requireContext().showToast(category.name)
 		viewModel.currentCategory.postValue(category)
-		Navigation.findNavController(requireView()).navigate(CategoryFragmentDirections.actionCategoryFragmentToSearchByCategoryFragment(viewModel.currentSite.value!!, category))
+		viewModel.currentSite.value?.let{
+			Navigation.findNavController(requireView()).navigate(CategoryFragmentDirections.actionCategoryFragmentToSearchByCategoryFragment(it, category))
+		}
 	}
 
 	private fun configRecyclerView() {

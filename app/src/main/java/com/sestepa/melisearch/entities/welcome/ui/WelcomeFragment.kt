@@ -30,7 +30,7 @@ class WelcomeFragment: Fragment(R.layout.fragment_welcome) {
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Download SITES successful !!!")
+				Log.i(TAG, "Download SITES successful!")
 				sites.forEach { site -> Log.i(TAG, "SITE: $site") }
 
 				viewModel.updateSites()

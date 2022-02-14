@@ -37,7 +37,7 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Get SITES successful !!!")
+				Log.i(TAG, "Get SITES successful!")
 				sites.forEach { site -> Log.i(TAG, "SITE: $site") }
 				configRecyclerView()
 			}
@@ -59,11 +59,13 @@ class SiteFragment: Fragment(R.layout.fragment_site) {
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Download CATEGORY successful !!!")
+				Log.i(TAG, "Download CATEGORY successful!")
 				categories.forEach { Log.i(TAG, "CATEGORY: $it") }
 
 				viewModel.updateCategories()
-				Navigation.findNavController(view).navigate(SiteFragmentDirections.actionSiteFragmentToMenuFragment(viewModel.currentSite.value!!))
+				viewModel.currentSite.value?.let {
+					Navigation.findNavController(view).navigate(SiteFragmentDirections.actionSiteFragmentToMenuFragment(it))
+				}
 			}
 		}
 	}

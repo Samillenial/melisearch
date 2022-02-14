@@ -3,7 +3,6 @@ package com.sestepa.melisearch.entities.search.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sestepa.melisearch.core.isNotNull
 import com.sestepa.melisearch.entities.product.domain.ProductData
 import com.sestepa.melisearch.entities.search.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +25,10 @@ class SearchViewModel @Inject constructor(
 
 	fun getItemsByName(siteId: String) {
 		viewModelScope.launch {
-			if(textQuery.value.isNotNull())
-				searchResult.postValue(getItemsByNameUseCase(siteId, textQuery.value!!, paging))
+
+			textQuery.value?.let {
+				searchResult.postValue(getItemsByNameUseCase(siteId, it, paging))
+			}
 		}
 	}
 
@@ -39,8 +40,9 @@ class SearchViewModel @Inject constructor(
 
 	fun saveItemRecord() {
 		viewModelScope.launch {
-			if(currentItem.value.isNotNull())
-				saveItemRecordUseCase(currentItem.value!!)
+			currentItem.value?.let {
+				saveItemRecordUseCase(it)
+			}
 		}
 	}
 

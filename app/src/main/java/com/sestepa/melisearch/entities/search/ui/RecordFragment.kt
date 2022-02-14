@@ -39,7 +39,7 @@ class RecordFragment: Fragment(R.layout.fragment_record) {
 				requireContext().showToast(getString(R.string.no_items))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Download ITEMS successful !!!")
+				Log.i(TAG, "Download ITEMS successful!")
 				result.items.forEach { item -> Log.i(TAG, "ITEM: $item") }
 
 				configRecyclerView()
@@ -56,8 +56,11 @@ class RecordFragment: Fragment(R.layout.fragment_record) {
 		val manager = LinearLayoutManager(context)
 
 		binding.resultRecycler.layoutManager = manager
-		binding.resultRecycler.adapter = SearchAdapter(viewModel.searchResult.value!!) { item ->
-			onItemSelected(item)
+
+		viewModel.searchResult.value?.let { searchData ->
+			SearchAdapter(searchData) { item ->
+				onItemSelected(item)
+			}
 		}
 
 		binding.resultRecycler.addItemDecoration(DividerItemDecoration(context, manager.orientation))

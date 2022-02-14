@@ -45,7 +45,7 @@ class SearchByCategoryFragment: Fragment(R.layout.fragment_search_category) {
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Download CATEGORY successful !!!")
+				Log.i(TAG, "Download CATEGORY successful!")
 				result.items.forEach { item -> Log.i(TAG, "ITEM: $item") }
 
 				configRecyclerView()
@@ -62,8 +62,11 @@ class SearchByCategoryFragment: Fragment(R.layout.fragment_search_category) {
 		val manager = LinearLayoutManager(context)
 
 		binding.resultRecycler.layoutManager = manager
-		binding.resultRecycler.adapter = SearchAdapter(viewModel.searchResult.value!!) { item ->
-			onItemSelected(item)
+
+		binding.resultRecycler.adapter = viewModel.searchResult.value?.let { searchData ->
+			SearchAdapter(searchData) { item ->
+				onItemSelected(item)
+			}
 		}
 
 		binding.resultRecycler.addItemDecoration(DividerItemDecoration(context, manager.orientation))

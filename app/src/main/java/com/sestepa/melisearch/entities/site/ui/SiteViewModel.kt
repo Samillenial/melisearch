@@ -19,7 +19,7 @@ class SiteViewModel @Inject constructor(
 		private val getCurrentSiteUseCase: GetCurrentSite,
 		private val updateCurrentSiteUseCase: UpdateCurrentSite,
 		private val getCategoriesUseCase: GetCategories,
-		private val updateCategories: UpdateCategories
+		private val updateCategoriesUseCase: UpdateCategories
 									   ): ViewModel() {
 
 	var siteList = MutableLiveData<List<SiteData>>()
@@ -36,8 +36,9 @@ class SiteViewModel @Inject constructor(
 
 	fun updateSites() {
 		viewModelScope.launch {
-			if(siteList.value.isNotNull())
-				updateSitesUseCase(siteList.value!!)
+			siteList.value?.let {
+				updateSitesUseCase(it)
+			}
 		}
 	}
 
@@ -49,22 +50,26 @@ class SiteViewModel @Inject constructor(
 
 	fun updateCurrentSite() {
 		viewModelScope.launch {
-			if(currentSite.value.isNotNull())
-				updateCurrentSiteUseCase(currentSite.value!!)
+
+			currentSite.value?.let {
+				updateCurrentSiteUseCase(it)
+			}
 		}
 	}
 
 	fun getCategories() {
 		viewModelScope.launch {
-			if(currentSite.value.isNotNull())
-				categoriesList.postValue(getCategoriesUseCase(currentSite.value!!).sorted())
+
+			currentSite.value?.let {
+				categoriesList.postValue(getCategoriesUseCase(it).sorted())
+			}
 		}
 	}
 
 	fun updateCategories() {
 		viewModelScope.launch {
 			if(currentSite.value.isNotNull() && siteList.value.isNotNull())
-				updateCategories(currentSite.value!!, categoriesList.value!!)
+				updateCategoriesUseCase(currentSite.value!!, categoriesList.value!!)
 		}
 	}
 }

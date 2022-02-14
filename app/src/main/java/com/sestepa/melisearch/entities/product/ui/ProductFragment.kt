@@ -43,7 +43,7 @@ class ProductFragment: Fragment(R.layout.fragment_product) {
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Download PRODUCT successful !!!")
+				Log.i(TAG, "Download PRODUCT successful!")
 				Log.i(TAG, product.toString())
 
 				fillView(product)

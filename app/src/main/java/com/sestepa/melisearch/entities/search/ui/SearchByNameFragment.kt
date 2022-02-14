@@ -43,7 +43,7 @@ class SearchByNameFragment: Fragment(R.layout.fragment_search_name) {
 				requireContext().showToast(getString(R.string.try_again))
 				requireActivity().onBackPressed()
 			} else {
-				Log.i(TAG, "Download ITEMS successful !!!")
+				Log.i(TAG, "Download ITEMS successful!")
 				result.items.forEach { item -> Log.i(TAG, "ITEM: $item") }
 
 				configRecyclerView()
@@ -77,8 +77,11 @@ class SearchByNameFragment: Fragment(R.layout.fragment_search_name) {
 		val manager = LinearLayoutManager(context)
 
 		binding.resultRecycler.layoutManager = manager
-		binding.resultRecycler.adapter = SearchAdapter(viewModel.searchResult.value!!) { item ->
-			onItemSelected(item)
+
+		binding.resultRecycler.adapter = viewModel.searchResult.value?.let { searchData ->
+			SearchAdapter(searchData) { item ->
+				onItemSelected(item)
+			}
 		}
 
 		binding.resultRecycler.addItemDecoration(DividerItemDecoration(context, manager.orientation))
